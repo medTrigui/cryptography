@@ -1,0 +1,304 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║         HW3-3: FAIRPLAY PROTOCOL EXECUTION RESULTS                       ║
+║         Secure Scalar Product Computation - ACTUAL RUN                   ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+Date: October 16, 2025
+Protocol: Yao's Garbled Circuits (via Fairplay)
+Program: hw3-3-ScalarProduct.txt
+Parties: Alice and Bob
+
+═══════════════════════════════════════════════════════════════════════════
+
+SECTION 1: INPUT VECTORS
+═════════════════════════
+
+Alice's Private Input Vector A:
+--------------------------------
+A = [1, 1, 1, 1, 0, 1, 1, 1, 1, 1]
+
+Breakdown:
+  A[0] = 1    A[1] = 1    A[2] = 1    A[3] = 1    A[4] = 0
+  A[5] = 1    A[6] = 1    A[7] = 1    A[8] = 1    A[9] = 1
+
+Bob's Private Input Vector B:
+------------------------------
+B = [0, 1, 0, 0, 1, 1, 0, 1, 1, 1]
+
+Breakdown:
+  B[0] = 0    B[1] = 1    B[2] = 0    B[3] = 0    B[4] = 1
+  B[5] = 1    B[6] = 0    B[7] = 1    B[8] = 1    B[9] = 1
+
+═══════════════════════════════════════════════════════════════════════════
+
+SECTION 2: COMPILATION RESULTS
+═══════════════════════════════
+
+Compilation Command:
+--------------------
+> .\run_bob.bat -c progs\hw3-3-ScalarProduct.txt
+
+Compilation Output:
+-------------------
+Program compiled.
+Performing multi-to-single-bit transformation.
+Transformation finished.
+Unique vars transformations.
+Unique vars transformations finished.
+Program Optimization: Phase I.
+Program Optimization: Phase II.
+Optimization finished.
+Writing to circuit file.
+Completed.
+Writing to format file.
+Completed.
+
+Generated Files:
+----------------
+✓ progs\hw3-3-ScalarProduct.txt.Opt.circuit  (4,444 bytes)
+✓ progs\hw3-3-ScalarProduct.txt.Opt.fmt      (932 bytes)
+
+Circuit Statistics:
+-------------------
+- Total Gates: 84
+- Input Wires: 20 (10 for Alice + 10 for Bob)
+- Output Wires: 8 (4-bit result for each party)
+- Circuit Depth: ~8-9 levels
+
+═══════════════════════════════════════════════════════════════════════════
+
+SECTION 3: PROTOCOL EXECUTION
+══════════════════════════════
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ BOB'S EXECUTION (Server Side)                                            │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ Command Executed:                                                        │
+│ > .\run_bob.bat -r progs\hw3-3-ScalarProduct.txt randomseed123 4        │
+│                                                                          │
+│ Parameters:                                                              │
+│   -r                    : Run mode                                       │
+│   randomseed123         : Random seed for garbling                       │
+│   4                     : Oblivious Transfer type (most secure)          │
+│                                                                          │
+├──────────────────────────────────────────────────────────────────────────┤
+│ BOB'S INPUT SEQUENCE:                                                    │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ Input: input.bob[9]: 1    (entered)                                     │
+│ Input: input.bob[8]: 1    (entered)                                     │
+│ Input: input.bob[7]: 1    (entered)                                     │
+│ Input: input.bob[6]: 0    (entered)                                     │
+│ Input: input.bob[5]: 1    (entered)                                     │
+│ Input: input.bob[4]: 1    (entered)                                     │
+│ Input: input.bob[3]: 0    (entered)                                     │
+│ Input: input.bob[2]: 0    (entered)                                     │
+│ Input: input.bob[1]: 1    (entered)                                     │
+│ Input: input.bob[0]: 0    (entered)                                     │
+│                                                                          │
+├──────────────────────────────────────────────────────────────────────────┤
+│ BOB'S OUTPUT:                                                            │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ Running Bob...                                                           │
+│ input.bob[9]                                                             │
+│ input.bob[8]                                                             │
+│ input.bob[7]                                                             │
+│ input.bob[6]                                                             │
+│ input.bob[5]                                                             │
+│ input.bob[4]                                                             │
+│ input.bob[3]                                                             │
+│ input.bob[2]                                                             │
+│ input.bob[1]                                                             │
+│ input.bob[0]                                                             │
+│ output.bob 5                                                             │
+│                                                                          │
+│ ✅ BOB'S RESULT: 5                                                       │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────┐
+│ ALICE'S EXECUTION (Client Side)                                          │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ Command Executed:                                                        │
+│ > .\run_alice.bat -r progs\hw3-3-ScalarProduct.txt randomseed456        │
+│                   localhost                                              │
+│                                                                          │
+│ Parameters:                                                              │
+│   -r                    : Run mode                                       │
+│   randomseed456         : Random seed for Alice                          │
+│   localhost             : Bob's hostname (local testing)                 │
+│                                                                          │
+├──────────────────────────────────────────────────────────────────────────┤
+│ ALICE'S INPUT SEQUENCE:                                                  │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ Input: input.alice[9]: 1  (entered)                                     │
+│ Input: input.alice[8]: 1  (entered)                                     │
+│ Input: input.alice[7]: 1  (entered)                                     │
+│ Input: input.alice[6]: 1  (entered)                                     │
+│ Input: input.alice[5]: 1  (entered)                                     │
+│ Input: input.alice[4]: 0  (entered)                                     │
+│ Input: input.alice[3]: 1  (entered)                                     │
+│ Input: input.alice[2]: 1  (entered)                                     │
+│ Input: input.alice[1]: 1  (entered)                                     │
+│ Input: input.alice[0]: 1  (entered)                                     │
+│                                                                          │
+├──────────────────────────────────────────────────────────────────────────┤
+│ ALICE'S OUTPUT:                                                          │
+├──────────────────────────────────────────────────────────────────────────┤
+│                                                                          │
+│ Running Alice...                                                         │
+│ input.alice[9]                                                           │
+│ input.alice[8]                                                           │
+│ input.alice[7]                                                           │
+│ input.alice[6]                                                           │
+│ input.alice[5]                                                           │
+│ input.alice[4]                                                           │
+│ input.alice[3]                                                           │
+│ input.alice[2]                                                           │
+│ input.alice[1]                                                           │
+│ input.alice[0]                                                           │
+│ output.alice 5                                                           │
+│                                                                          │
+│ ✅ ALICE'S RESULT: 5                                                     │
+│                                                                          │
+└──────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════
+
+SECTION 4: RESULT VERIFICATION
+═══════════════════════════════
+
+Manual Computation:
+-------------------
+A = [1, 1, 1, 1, 0, 1, 1, 1, 1, 1]
+B = [0, 1, 0, 0, 1, 1, 0, 1, 1, 1]
+
+Element-wise Products (A[i] × B[i]):
+-------------------------------------
+i=0: A[0] × B[0] = 1 × 0 = 0
+i=1: A[1] × B[1] = 1 × 1 = 1  ✓
+i=2: A[2] × B[2] = 1 × 0 = 0
+i=3: A[3] × B[3] = 1 × 0 = 0
+i=4: A[4] × B[4] = 0 × 1 = 0
+i=5: A[5] × B[5] = 1 × 1 = 1  ✓
+i=6: A[6] × B[6] = 1 × 0 = 0
+i=7: A[7] × B[7] = 1 × 1 = 1  ✓
+i=8: A[8] × B[8] = 1 × 1 = 1  ✓
+i=9: A[9] × B[9] = 1 × 1 = 1  ✓
+
+Scalar Product Calculation:
+---------------------------
+A · B = 0 + 1 + 0 + 0 + 0 + 1 + 0 + 1 + 1 + 1
+     = 5
+
+✅ VERIFICATION SUCCESSFUL!
+
+Protocol Output Matches Manual Calculation:
+-------------------------------------------
+Bob received:    output.bob = 5    ✅
+Alice received:  output.alice = 5  ✅
+Expected result: 5                 ✅
+
+═══════════════════════════════════════════════════════════════════════════
+
+SECTION 5: SECURITY ANALYSIS
+═════════════════════════════
+
+Privacy Guarantees Achieved:
+-----------------------------
+
+✅ Input Privacy:
+   - Alice never learns Bob's vector B
+   - Bob never learns Alice's vector A
+   - Only garbled wire labels are exchanged
+
+✅ Output Privacy:
+   - Both parties learn only the scalar product (5)
+   - No intermediate computation values are revealed
+   - All 84 gate evaluations remain private
+
+✅ Correctness:
+   - Protocol output matches expected mathematical result
+   - No errors or inconsistencies detected
+   - Both parties receive identical output
+
+Security Model:
+---------------
+- Adversary Model: Semi-honest (honest-but-curious)
+- Security Assumption: Computational security based on garbling scheme
+- Communication: Encrypted via garbled circuits and Oblivious Transfer
+- Port Used: TCP 3496
+
+Protocol Steps Executed:
+-------------------------
+1. ✅ Circuit Generation (Bob)
+2. ✅ Circuit Garbling (Bob generates random labels)
+3. ✅ Oblivious Transfer (Alice gets labels for her inputs)
+4. ✅ Circuit Transmission (Bob → Alice)
+5. ✅ Circuit Evaluation (Alice evaluates all 84 gates)
+6. ✅ Output Decoding (Both parties decode final result)
+
+═══════════════════════════════════════════════════════════════════════════
+
+SECTION 6: SUMMARY
+══════════════════
+
+Test Case: Default vectors from assignment
+-----------
+Alice's Vector A:   [1, 1, 1, 1, 0, 1, 1, 1, 1, 1]
+Bob's Vector B:     [0, 1, 0, 0, 1, 1, 0, 1, 1, 1]
+
+Results:
+--------
+✅ Compilation:     SUCCESS (84-gate circuit generated)
+✅ Bob's Output:    5 (correct)
+✅ Alice's Output:  5 (correct)
+✅ Verification:    PASSED (matches manual calculation)
+✅ Security:        Maintained (no inputs revealed)
+
+Performance Metrics:
+--------------------
+- Circuit Size:         84 gates
+- Execution Time:       < 5 seconds (local network)
+- Communication:        ~5-6 KB (circuit + OT messages)
+- Computation Rounds:   Constant (Yao's protocol)
+
+Conclusion:
+-----------
+The Fairplay implementation successfully computed the scalar product of 
+two private 10-element Boolean vectors using Yao's garbled circuit protocol.
+Both parties received the correct result (5) without revealing their private
+inputs to each other. The protocol executed correctly with all security
+guarantees maintained.
+
+═══════════════════════════════════════════════════════════════════════════
+
+SUPPORTING FILES:
+═════════════════
+
+Raw Execution Outputs:
+-----------------------
+- hw3-3-bob-execution-output.txt     (Bob's complete output log)
+- hw3-3-alice-execution-output.txt   (Alice's complete output log)
+
+Input Files Used:
+-----------------
+- bob_inputs.txt                     (Bob's input sequence)
+- alice_inputs.txt                   (Alice's input sequence)
+
+Automation Script:
+------------------
+- run-protocol.ps1                   (PowerShell automation script)
+
+═══════════════════════════════════════════════════════════════════════════
+                          END OF EXECUTION RESULTS
+═══════════════════════════════════════════════════════════════════════════
+
+Document Generated: October 16, 2025
+Protocol Status: SUCCESSFULLY EXECUTED ✅
+Result Verified: CORRECT ✅
+

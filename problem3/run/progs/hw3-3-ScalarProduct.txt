@@ -1,0 +1,63 @@
+/*
+ * Secure Scalar Product Computation
+ * 
+ * This program computes the scalar product (dot product) of two Boolean vectors
+ * Alice has a private Boolean vector A with 10 entries
+ * Bob has a private Boolean vector B with 10 entries
+ * 
+ * The scalar product A · B is computed as:
+ * A · B = sum(A[i] * B[i]) for i = 0 to 9
+ * 
+ * Example:
+ * A = [1, 1, 1, 1, 0, 1, 1, 1, 1, 1]
+ * B = [0, 1, 0, 0, 1, 1, 0, 1, 1, 1]
+ * A · B = 1*0 + 1*1 + 1*0 + 1*0 + 0*1 + 1*1 + 1*0 + 1*1 + 1*1 + 1*1 = 5
+ */
+
+program ScalarProduct {
+    // Constants
+    const VectorSize = 10;
+    
+    // Type definitions
+    type Bool = Boolean;
+    type BoolVector = Bool[VectorSize];
+    type Result = Int<4>;  // 4 bits can represent 0-15, sufficient for max result of 10
+    
+    // Input types - Alice and Bob each have a Boolean vector
+    type AliceInput = BoolVector;
+    type BobInput = BoolVector;
+    
+    // Output types - Both parties receive the scalar product result
+    type AliceOutput = Result;
+    type BobOutput = Result;
+    
+    // Combined input/output structures
+    type Input = struct {AliceInput alice, BobInput bob};
+    type Output = struct {AliceOutput alice, BobOutput bob};
+    
+    // Main computation function
+    function Output output(Input input) {
+        var Result sum;
+        var Int<4> i;
+        var Bool product;
+        
+        // Initialize sum to 0
+        sum = 0;
+        
+        // Compute scalar product: sum of element-wise products
+        for (i = 0 to VectorSize-1) {
+            // Multiply corresponding elements (AND operation for Booleans)
+            product = input.alice[i] & input.bob[i];
+            
+            // Add to running sum
+            if (product) {
+                sum = sum + 1;
+            }
+        }
+        
+        // Both parties receive the same result
+        output.alice = sum;
+        output.bob = sum;
+    }
+}
+

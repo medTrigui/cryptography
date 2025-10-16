@@ -1,0 +1,96 @@
+═══════════════════════════════════════════════════════════════════════════
+                    HW3-3: INPUT MATRICES (BOOLEAN VECTORS)
+                    Secure Scalar Product Computation
+═══════════════════════════════════════════════════════════════════════════
+
+ALICE'S PRIVATE INPUT VECTOR A
+───────────────────────────────
+
+A = [1, 1, 1, 1, 0, 1, 1, 1, 1, 1]
+
+Breakdown by index:
+  A[0] = 1    A[1] = 1    A[2] = 1    A[3] = 1    A[4] = 0
+  A[5] = 1    A[6] = 1    A[7] = 1    A[8] = 1    A[9] = 1
+
+Matrix representation (1×10):
+┌                                      ┐
+│  1  1  1  1  0  1  1  1  1  1       │
+└                                      ┘
+
+
+BOB'S PRIVATE INPUT VECTOR B
+─────────────────────────────
+
+B = [0, 1, 0, 0, 1, 1, 0, 1, 1, 1]
+
+Breakdown by index:
+  B[0] = 0    B[1] = 1    B[2] = 0    B[3] = 0    B[4] = 1
+  B[5] = 1    B[6] = 0    B[7] = 1    B[8] = 1    B[9] = 1
+
+Matrix representation (1×10):
+┌                                      ┐
+│  0  1  0  0  1  1  0  1  1  1       │
+└                                      ┘
+
+
+EXPECTED COMPUTATION
+────────────────────
+
+Scalar Product (Dot Product):
+A · B = Σ(A[i] × B[i]) for i = 0 to 9
+
+Element-wise multiplication:
+  A[0] × B[0] = 1 × 0 = 0
+  A[1] × B[1] = 1 × 1 = 1  ✓
+  A[2] × B[2] = 1 × 0 = 0
+  A[3] × B[3] = 1 × 0 = 0
+  A[4] × B[4] = 0 × 1 = 0
+  A[5] × B[5] = 1 × 1 = 1  ✓
+  A[6] × B[6] = 1 × 0 = 0
+  A[7] × B[7] = 1 × 1 = 1  ✓
+  A[8] × B[8] = 1 × 1 = 1  ✓
+  A[9] × B[9] = 1 × 1 = 1  ✓
+
+Sum: 0 + 1 + 0 + 0 + 0 + 1 + 0 + 1 + 1 + 1 = 5
+
+Expected Result: A · B = 5
+
+
+ACTUAL PROTOCOL OUTPUT
+──────────────────────
+
+Bob's Output:   output.bob = 5    ✓
+Alice's Output: output.alice = 5  ✓
+
+Result Verified: CORRECT ✓
+
+
+INPUT FORMAT FOR FAIRPLAY EXECUTION
+────────────────────────────────────
+
+Bob's Input Sequence (entered during execution):
+  input.bob[9]: 1
+  input.bob[8]: 1
+  input.bob[7]: 1
+  input.bob[6]: 0
+  input.bob[5]: 1
+  input.bob[4]: 1
+  input.bob[3]: 0
+  input.bob[2]: 0
+  input.bob[1]: 1
+  input.bob[0]: 0
+
+Alice's Input Sequence (entered during execution):
+  input.alice[9]: 1
+  input.alice[8]: 1
+  input.alice[7]: 1
+  input.alice[6]: 1
+  input.alice[5]: 1
+  input.alice[4]: 0
+  input.alice[3]: 1
+  input.alice[2]: 1
+  input.alice[1]: 1
+  input.alice[0]: 1
+
+═══════════════════════════════════════════════════════════════════════════
+
