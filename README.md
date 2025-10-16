@@ -92,9 +92,3 @@ See problem4/hw3-4-report.md for complete protocol design
 ```
 
 ---
-
-## Scores
-
-- Problem 3: Implementation complete
-- Problem 4: 30/30 points (design) + 0/20 bonus (implementation)
-
